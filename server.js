@@ -1,14 +1,11 @@
-const http = require('http');
+'use strict';
 
-const hostname = '127.0.0.1';
-const port = 3000;
-
-const server = http.createServer((req, res) => {
-	res.statusCode = 200;
-	res.setHeader('Content-Type', 'text/plain');
-	res.end('Hello World\n');
-});
-
-server.listen(port, hostname, () => {
-  console.log('Server running at http://'${hostname}:${port}/');
-});
+// [START all]
+var http = require('http');
+var handleRequest = function (req, res) {
+  res.writeHead(200);
+  res.end('Hello Kubernetes!');
+};
+var www = http.createServer(handleRequest);
+www.listen(process.env.PORT || 8080);
+// [END all]

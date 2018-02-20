@@ -1,4 +1,4 @@
 FROM node:6-alpine
-EXPOSE 3000
+EXPOSE 8080
 COPY server.js .
 CMD node server.js
