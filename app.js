@@ -32,7 +32,7 @@ app.post('/getWeather',function(req,res){
     //console.log(JSON.stringify(result, null, 2));
   });
 });
-app.listen(8080);
+app.listen(3310);
 /*
 var https = require('https');
   app.get('/',function(req,res){
