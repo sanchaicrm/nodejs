@@ -46,11 +46,11 @@
           document.getElementById('quickstart-sign-in').textContent = 'Sign out';
           document.getElementById('userDisplay').textContent = displayName;
           var request = $.ajax({
-            url: "http://localhost:8080/getWeather",
+            url: "http://"+location.host+"/getWeather",
             method: "POST",
           });
           request.done(function( msg ) {
-            document.getElementById('temperature').textContent = msg.temperature +' c';
+            document.getElementById('temperature').textContent = 'temporature : '+msg.temperature +' c';
             console.log(msg.temperature);
           });
           console.log(user);
