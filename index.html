@@ -45,23 +45,35 @@
 				  var displayName = user.displayName;
           document.getElementById('quickstart-sign-in').textContent = 'Sign out';
           document.getElementById('userDisplay').textContent = displayName;
+          document.getElementById('uid').textContent = user.uid;
+          document.getElementById('temperature').textContent = 'Loading...';
           var request = $.ajax({
             url: "http://"+location.host+"/getWeather",
             method: "POST",
+            data: JSON.stringify({
+              uid:user.uid
+            }),
+            dataType: 'json',
+            contentType: 'application/json'
           });
           request.done(function( msg ) {
-            document.getElementById('temperature').textContent = 'temporature : '+msg.temperature +' c';
-            console.log(msg.temperature);
+            if(jQuery.isEmptyObject(msg)){
+              document.getElementById('temperature').textContent = 'No user found on DB';
+            }else{
+              document.getElementById('temperature').textContent = msg.observationpoint+' has temporature : '+msg.temperature +' c';
+            }
+            console.log(msg);
           });
           console.log(user);
         } else {
           document.getElementById('quickstart-sign-in').textContent = 'Sign in with Google';
           document.getElementById('userDisplay').textContent = '';
           document.getElementById('temperature').textContent = '';
+          document.getElementById('uid').textContent = '';
 			  }
         document.getElementById('quickstart-sign-in').disabled = false;
 	  	});
-		document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
+		  document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
     }
 
     window.onload = function() {
@@ -73,8 +85,8 @@
         storageBucket: "nodejs-testlab.appspot.com",
         messagingSenderId: "996347046648"
       };
-		firebase.initializeApp(config);
-		initApp();
+		  firebase.initializeApp(config);
+		  initApp();
     };
 	</script>
 </head>
@@ -84,6 +96,7 @@
       <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in">Sign in with Google</button>
       <div id="userDisplay"></div>
       <div id="temperature"></div>
+      <div id="uid"></div>
   </div>
 </div>
 </body>
