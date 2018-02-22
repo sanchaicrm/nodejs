@@ -1,4 +1,6 @@
-FROM node:8.9.4-alpine
+FROM alpine:3.7
+RUN apt-get install nodejs
+RUN apt-get install python
 COPY package*.json ./
 RUN npm install
 COPY . .
